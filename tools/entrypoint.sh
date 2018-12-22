@@ -1,18 +1,11 @@
 #!/bin/sh
 
-if [ ! -d "$(pwd)/node_modules" ]; then
-    if [ -e "$(pwd)/yarn.lock" ]; then
-        /usr/local/bin/yarn install --pure-lockfile
-        /usr/local/bin/yarn cache clean --force
-    elif [ -e "$(pwd)/package.json" ]; then
-        /usr/local/bin/npm install
-        /usr/local/bin/npm cache clean --force
-    fi
+if [ -e "$(pwd)/package.json" ]; then
+    /usr/local/bin/npm install
+    /usr/local/bin/npm cache clean --force
 fi
 
-if [ ! -d "$(pwd)/.nuxt" ]; then
-    /usr/local/bin/npm run build
-fi
+/usr/local/bin/npm run build
 
 if [[ ! -z "$1" ]]; then
     if [[ -z "$(which -- $1)" ]]; then
