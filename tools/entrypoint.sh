@@ -2,7 +2,6 @@
 
 if [ -e "$(pwd)/package.json" ]; then
     /usr/local/bin/npm install
-    /usr/local/bin/npm cache clean --force
 fi
 
 /usr/local/bin/npm run build
