@@ -1,4 +1,5 @@
 #!/bin/sh
+sudo chgrp -Rf node ./ 
 
 if [ -e "$(pwd)/package.json" ]; then
     /usr/local/bin/npm install
