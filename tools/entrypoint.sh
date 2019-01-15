@@ -1,4 +1,5 @@
 #!/bin/sh
+sudo chgrp -Rf $(whoami) ./
 
 if [ ! -d "$(pwd)/node_modules" ]; then
     if [ -e "$(pwd)/yarn.lock" ]; then
@@ -9,6 +10,8 @@ if [ ! -d "$(pwd)/node_modules" ]; then
         /usr/local/bin/npm cache clean --force
     fi
 fi
+
+export PATH="${PATH}:${WORKDIR}/node_modules/.bin"
 
 if [ ! -d "$(pwd)/.nuxt" ]; then
     /usr/local/bin/npm run build
