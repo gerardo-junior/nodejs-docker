@@ -1,4 +1,4 @@
-# Client building environment of node project 
+# Environment of node project 
 
 [![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/gerardojunior/node.environment)
 
