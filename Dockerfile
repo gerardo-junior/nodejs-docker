@@ -103,9 +103,6 @@ RUN apk del ${COMPILE_DEPS} && \
           YARN_VERSION \
           COMPILE_DEPS
 
-# Variables of nuxt configure
-ENV HOST 0.0.0.0
-
 # Copying scripts
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
@@ -115,5 +112,4 @@ VOLUME ["${WORKDIR}"]
 WORKDIR $WORKDIR
 USER $USER
 
-EXPOSE 3000
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
