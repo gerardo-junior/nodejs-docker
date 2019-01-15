@@ -103,13 +103,12 @@ RUN apk del ${COMPILE_DEPS} && \
           YARN_VERSION \
           COMPILE_DEPS
 
-# Copying scripts
-COPY ./tools/entrypoint.sh /usr/local/bin/00-entrypoint.sh
-RUN chmod +x /usr/local/bin/00-entrypoint.sh
-
 # Set project directory
 VOLUME ["${WORKDIR}"]
 WORKDIR $WORKDIR
 USER $USER
 
-ENTRYPOINT ["/usr/local/bin/00-entrypoint.sh"]
+# Copying scripts and setting entrypoint
+COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN sudo chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
