@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo chgrp -Rf $(whoami) ./
+sudo chgrp -Rf ${USER} ${WORKDIR}
 
 if [ -e "$(pwd)/package.json" ]; then
     /usr/local/bin/npm install
