@@ -1,12 +1,30 @@
 FROM library/alpine:3.7
 LABEL maintainer="Gerardo Junior <me@gerardo-junior.com>"
 
-ENV WORKDIR "/usr/share/src"
 ENV USER "node"
+ENV WORKDIR "/usr/share/src"
 
 ARG NODE_VERSION=8.11.1
-ARG NPM_VERSION=latest
+ARG NPM_VERSION=6.5.0
 ARG YARN_VERSION=1.5.1
+
+# Install run app dependencies
+RUN apk --update add --virtual .persistent-deps \
+                               sudo \
+                               libstdc++
+
+# Create project directory
+RUN mkdir -p $WORKDIR
+
+# Create user node
+RUN set -xe && \
+    addgroup -g 1000 $USER && \
+    adduser -u 1000 -G $USER -s /bin/sh -D $USER && \
+    echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default && \
+    chown -Rf $USER $WORKDIR
+
+# Enter folder for build
+RUN cd /tmp
 
 ENV COMPILE_DEPS .build-deps \
                  binutils-gold \
@@ -24,25 +42,8 @@ ENV COMPILE_DEPS .build-deps \
 # Install compile app dependencies
 RUN apk add --no-cache --virtual ${COMPILE_DEPS}
 
-# Install run app dependencies
-RUN apk --update add --virtual .persistent-deps \
-                               sudo \
-                               libstdc++
-
-RUN cd /tmp
-
-# Create project directory
-RUN mkdir -p $WORKDIR
-
-# Create user node
-RUN set -xe && \
-    addgroup -g 1000 $USER && \
-    adduser -u 1000 -G $USER -s /bin/sh -D $USER && \
-    echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default && \
-    chown -Rf $USER $WORKDIR
-
 # Compile and install node
-ENV NODE_SOURCE_URL https://nodejs.org/dist
+ARG NODE_SOURCE_URL=https://nodejs.org/dist
 RUN set -xe && \
     for key in \
         94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -75,7 +76,7 @@ RUN set -xe && \
 RUN npm i npm@${NPM_VERSION} -g
 
 # Compile and install yarn
-ENV YARN_SOURCE_URL https://yarnpkg.com/downloads
+ARG YARN_SOURCE_URL=https://yarnpkg.com/downloads
 RUN set -xe && \
     for key in \
         6A010C5166006599AA17F08146C2130DFD2497F5 \
@@ -105,13 +106,14 @@ RUN apk del ${COMPILE_DEPS} && \
 # Variables of nuxt configure
 ENV HOST 0.0.0.0
 
+# Copying scripts
+COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Set project directory
 VOLUME ["${WORKDIR}"]
 WORKDIR $WORKDIR
 USER $USER
 
 EXPOSE 3000
-
-COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN sudo chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
