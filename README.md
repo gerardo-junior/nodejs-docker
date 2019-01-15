@@ -1,6 +1,6 @@
 # Environment of node project 
 
-[![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/gerardojunior/node.environment)
+[![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/gerardojunior/nodejs)
 
 Docker image to run [node](https://nodejs.org/) projects
 
@@ -19,7 +19,7 @@ Docker image to run [node](https://nodejs.org/) projects
 ## Come on, do your tests
 
 ```bash
-docker pull gerardojunior/node.environment:stable
+docker pull gerardojunior/nodejs:stable
 ```
 ## How to build
 
@@ -28,9 +28,9 @@ to build the image you need install the [docker engine](https://www.docker.com/)
 > You can try building with different versions of software with docker args, for example: NODE_VERISON=10.0.0
 
 ```bash
-git clone https://github.com/gerardo-junior/node.environment.git
-cd node.environment
-docker build . --tag gerardojunior/node.environment
+git clone https://github.com/gerardo-junior/nodejs-docker.git
+cd nodejs-docker
+docker build . --tag gerardojunior/nodejs
 ```
 
 ## How to use
@@ -39,7 +39,7 @@ docker build . --tag gerardojunior/node.environment
 
 ```bash
 # in your project folder
-docker run -it --rm -v $(pwd):/usr/share/src -p 3000:3000 gerardojunior/node.environment:stable [command]
+docker run -it --rm -v $(pwd):/usr/share/src -p 3000:3000 gerardojunior/nodejs:stable [command]
 
 # or docker-compose
 docker-compose run node [command]
@@ -52,7 +52,7 @@ Create the docker-compose.yml file  in your project folder with:
 # (...)
 
   node:
-    image: gerardojunior/node.environment:stable
+    image: gerardojunior/nodejs:stable
     restart: on-failure
     volumes:
       - type: bind
@@ -68,9 +68,9 @@ Create the docker-compose.yml file  in your project folder with:
 ## How to enter image shell
  
 ```bash
-docker run -it --rm gerardojunior/node.environment sh
+docker run -it --rm gerardojunior/nodejs sh
 # or with docker-compose
-docker-compose run nuxt sh
+docker-compose run node sh
 ```
 
 ### License  
