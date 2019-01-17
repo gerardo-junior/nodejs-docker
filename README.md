@@ -1,4 +1,4 @@
-# Environment of clojure project 
+# Environment of nodejs project 
 
 ```
     [+] AUTOR:        Gerardo Junior
