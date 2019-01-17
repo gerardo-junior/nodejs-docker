@@ -1,20 +1,22 @@
-# Environment of node project 
+# Environment of clojure project 
+
+```
+    [+] AUTOR:        Gerardo Junior
+    [+] SITE:         https://gerardo-junior.com
+    [+] EMAIL:        me@gerardo-junior.com
+    [+] GITHUB:       https://github.com/gerardo-junior/nodejs-docker
+    [+] TELEGRAM:     @MrGerardoJunior
+```
 
 [![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/gerardojunior/nodejs)
 
 Docker image to run [node](https://nodejs.org/) projects
 
-> The project must be in the **/usr/local/src** container folder 
+> The project must be in the **/src** container folder 
 ## Tags available
 
-- stable
-  - [node](https://nodejs.org/) 8.11.1 (carbon)
-  - [yarn](https://yarnpkg.com/) 1.5.1
-  - [npm](https://www.npmjs.com/) 6.5.0
-- latest
-  - [node](https://nodejs.org/) 8.11.1 (carbon)
-  - [yarn](https://yarnpkg.com/) 1.5.1
-  - [npm](https://www.npmjs.com/) 6.5.0
+- [stable](https://github.com/gerardo-junior/nodejs-docker/blob/master/Dockerfile), [latest](https://github.com/gerardo-junior/nodejs-docker/blob/develop/Dockerfile), [1.0.0](https://github.com/gerardo-junior/nodejs-docker/blob/1.0.0/Dockerfile)
+  - [node](https://nodejs.org/) 8.15.0
 
 ## Come on, do your tests
 
@@ -28,9 +30,7 @@ to build the image you need install the [docker engine](https://www.docker.com/)
 > You can try building with different versions of software with docker args, for example: NODE_VERISON=10.0.0
 
 ```bash
-git clone https://github.com/gerardo-junior/nodejs-docker.git
-cd nodejs-docker
-docker build . --tag gerardojunior/nodejs
+docker build https://github.com/gerardo-junior/nodejs-docker.git --tag gerardojunior/nodejs
 ```
 
 ## How to use
@@ -39,7 +39,7 @@ docker build . --tag gerardojunior/nodejs
 
 ```bash
 # in your project folder
-docker run -it --rm -v $(pwd):/usr/share/src -p 3000:3000 gerardojunior/nodejs:stable [command]
+docker run -it --rm -v $(pwd):/src -p 3000:3000 gerardojunior/nodejs:stable [command]
 
 # or docker-compose
 docker-compose run node [command]
@@ -57,7 +57,7 @@ Create the docker-compose.yml file  in your project folder with:
     volumes:
       - type: bind
         source: ./
-        target: /usr/share/src
+        target: /src
     #ports:
     #  - 3000:3000
     #command: dev
