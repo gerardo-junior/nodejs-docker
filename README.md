@@ -15,8 +15,9 @@ Docker image to run [node](https://nodejs.org/) projects
 > The project must be in the **/src** container folder 
 ## Tags available
 
-- [stable](https://github.com/gerardo-junior/nodejs-docker/blob/master/Dockerfile), [latest](https://github.com/gerardo-junior/nodejs-docker/blob/develop/Dockerfile), [1.0.0](https://github.com/gerardo-junior/nodejs-docker/blob/1.0.0/Dockerfile)
-  - [node](https://nodejs.org/) 8.15.0
+- [stable](https://github.com/gerardo-junior/nodejs-docker/blob/master/Dockerfile), [latest](https://github.com/gerardo-junior/nodejs-docker/blob/develop/Dockerfile), [1.0.0](https://github.com/gerardo-junior/nodejs-docker/blob/1.0.0/Dockerfile)   
+    - [library/node](https://hub.docker.com/_/node) 8.15.0-alpine
+        - [node](https://nodejs.org/) 8.15.0
 
 ## Come on, do your tests
 
