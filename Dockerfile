@@ -1,3 +1,4 @@
+# Setting packages version
 ARG NODE_VERSION="8.15.0"
 
 FROM library/node:$NODE_VERSION-alpine
