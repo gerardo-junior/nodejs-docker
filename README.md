@@ -4,7 +4,7 @@
     [+] AUTOR:        Gerardo Junior
     [+] SITE:         https://gerardo-junior.com
     [+] EMAIL:        me@gerardo-junior.com
-    [+] GITHUB:       https://github.com/gerardo-junior/nodejs-docker
+    [+] GITHUB:       https://github.com/gerardo-junior/nodejs-docker.git
     [+] TELEGRAM:     @MrGerardoJunior
 ```
 
