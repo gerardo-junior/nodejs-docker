@@ -13,12 +13,14 @@ fi
 
 export PATH="${PATH}:${WORKDIR}/node_modules/.bin"
 
-if [[ -z "$(which -- $1)" ]]; then
-    if [ -e "$(pwd)/yarn.lock" ]; then
-        /usr/local/bin/yarn "$@"
+if [ ! -z "$1" ]; then
+    if [[ -z "$(which -- $1)" ]]; then
+        if [ -e "$(pwd)/yarn.lock" ]; then
+            /usr/local/bin/yarn "$@"
+        else
+            /usr/local/bin/npm run "$@"
+        fi
     else
-        /usr/local/bin/npm run "$@"
+        exec "$@"
     fi
-else
-    exec "$@"
 fi
