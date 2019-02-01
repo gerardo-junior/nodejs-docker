@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo chgrp -Rf ${USER} ${WORKDIR}
+sudo chgrp -Rf ${USER} $(pwd)
 
 if [ ! -d "$(pwd)/node_modules" ]; then
     if [ -e "$(pwd)/yarn.lock" ]; then
