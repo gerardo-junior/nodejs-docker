@@ -1,7 +1,7 @@
 #!/bin/sh
 
 exec_with_root_permission () {  
-    if [ ${EUID} -ne 0 ] 
+    if [ ${EUID} -ne 0 ]; then 
         exec "$@"
     elif [ -e '/usr/bin/sudo' ]; then
         /usr/bin/sudo "$@"
@@ -10,8 +10,12 @@ exec_with_root_permission () {
     fi
 }
 
-if [-e "/bin/chgrp"]; then 
+if [ ! ${EUID} -ne 0 ]; then 
     exec_with_root_permission /bin/chgrp -Rf ${USER} ${WORKDIR}
+fi
+
+if [ -e "${WORKDIR}/.env"]; then
+    export $(/bin/grep -v '^#' ${WORKDIR}/.env | /user/bin/xargs -d '\n')
 fi
 
 if [ -e "${WORKDIR}/yarn.lock" ]; then 
