@@ -1,10 +1,16 @@
 #!/bin/sh
 
-if [ ! -e '/usr/bin/sudo' ]; then
-    sudo() exec "$@"
-fi
+exec_with_root_permission () {  
+    if [ ${EUID} -ne 0 ] 
+        exec "$@"
+    elif [ -e '/usr/bin/sudo' ]; then
+        /usr/bin/sudo "$@"
+    else
+        echo -e "\e[31mUnable to run \"${@}\" commad with root permission\e[0m" 
+    fi
+}
 
-sudo /bin/chgrp -Rf ${USER} ${WORKDIR}
+exec_with_root_permission /bin/chgrp -Rf ${USER} ${WORKDIR}
 
 if [ -e "${WORKDIR}/yarn.lock" ]; then 
     NODE_MANAGER='yarn'
@@ -12,8 +18,7 @@ else
     NODE_MANAGER='npm'
 fi
 
-if [ -e "${WORKDIR}/package.json" ]; then
-    
+if [ -e "${WORKDIR}/package.json" ]; then    
     if [ ! -d "${WORKDIR}/node_modules" ]; then
         /usr/local/bin/${NODE_MANAGER} install
         /usr/local/bin/${NODE_MANAGER} cache clean --force
