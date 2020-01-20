@@ -1,26 +1,33 @@
 #!/bin/sh
-sudo chgrp -Rf ${USER} ${WORKDIR}
 
-if [ ! -d "${WORKDIR}/node_modules" ]; then
-    if [ -e "${WORKDIR}/yarn.lock" ]; then
-        /usr/local/bin/yarn install --pure-lockfile
-        /usr/local/bin/yarn cache clean --force
-    elif [ -e "${WORKDIR}/package.json" ]; then
-        /usr/local/bin/npm install
-        /usr/local/bin/npm cache clean --force
-    fi
+if [ ! -e '/usr/bin/sudo' ]; then
+    sudo() exec "$@"
 fi
 
-export PATH="${PATH}:${WORKDIR}/node_modules/.bin"
+sudo /bin/chgrp -Rf ${USER} ${WORKDIR}
+
+if [ -e "${WORKDIR}/yarn.lock" ]; then 
+    NODE_MANAGER='yarn'
+else 
+    NODE_MANAGER='npm'
+fi
+
+if [ -e "${WORKDIR}/package.json" ]; then
+    
+    if [ ! -d "${WORKDIR}/node_modules" ]; then
+        /usr/local/bin/${NODE_MANAGER} install
+        /usr/local/bin/${NODE_MANAGER} cache clean --force
+    fi
+
+    export PATH="${PATH}:${WORKDIR}/node_modules/.bin"
+fi
 
 if [ ! -z "$1" ]; then
-    if [[ -z "$(which -- $1)" ]]; then
-        if [ -e "${WORKDIR}/yarn.lock" ]; then
-            /usr/local/bin/yarn "$@"
-        else
-            /usr/local/bin/npm run "$@"
-        fi
+    if [[ -z "$(/usr/bin/which -- $1)" ]]; then
+        /usr/local/bin/${NODE_MANAGER} run "$@"
     else
         exec "$@"
     fi
 fi
+
+exit 1
