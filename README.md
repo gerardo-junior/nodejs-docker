@@ -40,15 +40,11 @@ docker build https://github.com/gerardo-junior/nodejs-docker.git --tag gerardoju
 ##### Only with docker command:
 
 ```bash
-# in your project folder
-docker run -it --rm -v $(pwd):/src -p 3000:3000 gerardojunior/nodejs:stable [command]
-
-# or docker-compose
-docker-compose run node [command]
+docker run -it --rm gerardojunior/nodejs:stable [sh command or npm script]
 ```
 ##### With [docker-compose](https://docs.docker.com/compose/)
 
-Create the docker-compose.yml file  in your project folder with:
+Create the [docker-compose.yml](https://docs.docker.com/compose/compose-file/) file  in your project folder with:
 
 ```yml
 # (...)
@@ -56,15 +52,13 @@ Create the docker-compose.yml file  in your project folder with:
   node:
     image: gerardojunior/nodejs:stable
     restart: on-failure
-    volumes:
-      - type: bind
-        source: ./
-        target: /src
-    #ports:
-    #  - 3000:3000
-    #command: dev
 
 # (...)
+```
+
+run this command with this syntax
+```bash
+docker-compose run node [sh command or npm script]
 ```
 
 ## How to enter image shell
@@ -76,4 +70,4 @@ docker-compose run node sh
 ```
 
 ### License  
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/gerardo-junior/nodejs-docker/blob/master/LICENSE) file for details
