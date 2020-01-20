@@ -49,7 +49,7 @@ Create the [docker-compose.yml](https://docs.docker.com/compose/compose-file/) f
 ```yml
 # (...)
 
-  node:
+  nodejs:
     image: gerardojunior/nodejs:stable
     restart: on-failure
 
