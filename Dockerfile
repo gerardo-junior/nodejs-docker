@@ -19,11 +19,12 @@ RUN set -xe && \
     /bin/echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default && \
     /bin/chown -Rf ${USER} ${WORKDIR}
 
+# Add tools script
 COPY ./tools /opt/tools
 ENV PATH ${PATH}:/opt/tools
 RUN /bin/chmod -R +x /opt/tools/
 
-# Set project directory
+# Set image settings
 VOLUME [${WORKDIR}]
 WORKDIR ${WORKDIR}
 USER ${USER}
