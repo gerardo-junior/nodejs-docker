@@ -10,7 +10,9 @@ exec_with_root_permission () {
     fi
 }
 
-exec_with_root_permission /bin/chgrp -Rf ${USER} ${WORKDIR}
+if [-e "/bin/chgrp"]; then 
+    exec_with_root_permission /bin/chgrp -Rf ${USER} ${WORKDIR}
+fi
 
 if [ -e "${WORKDIR}/yarn.lock" ]; then 
     NODE_MANAGER='yarn'
