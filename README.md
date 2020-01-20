@@ -37,12 +37,12 @@ docker build https://github.com/gerardo-junior/nodejs-docker.git --tag gerardoju
 
 ## How to use
 
-##### Only with docker command:
+##### Only with [docker](https://docs.docker.com/engine/reference/commandline/docker/) command:
 
 ```bash
 docker run -it --rm gerardojunior/nodejs:stable [sh command or npm script]
 ```
-##### With [docker-compose](https://docs.docker.com/compose/)
+##### With [docker-compose](https://docs.docker.com/compose/) command:
 
 Create the [docker-compose.yml](https://docs.docker.com/compose/compose-file/) file  in your project folder with:
 
