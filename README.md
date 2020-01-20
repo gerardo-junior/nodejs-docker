@@ -37,7 +37,7 @@ docker build https://github.com/gerardo-junior/nodejs-docker.git --tag gerardoju
 
 ## How to use
 
-##### Only with [docker](https://docs.docker.com/engine/reference/commandline/docker/) command:
+##### With [docker](https://docs.docker.com/engine/reference/commandline/docker/) command:
 
 ```bash
 docker run -it --rm gerardojunior/nodejs:stable [sh command or npm script]
