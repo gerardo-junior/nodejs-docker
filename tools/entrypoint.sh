@@ -28,7 +28,7 @@ if [ -e "${WORKDIR}/package.json" ]; then
 fi
 
 if [ ! -z "$1" ]; then
-    if [[ -z "$(/usr/bin/which -- $1)" ]]; then
+    if [ -z "$(/usr/bin/which -- $1)" ]; then
         /usr/local/bin/${NODE_MANAGER} run "$@"
     else
         exec "$@"
