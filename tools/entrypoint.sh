@@ -1,17 +1,7 @@
 #!/bin/sh
 
-exec_with_root_permission () {  
-    if [ ${EUID} -ne 0 ]; then 
-        exec "$@"
-    elif [ -e '/usr/bin/sudo' ]; then
-        /usr/bin/sudo "$@"
-    else
-        echo -e "\e[31mUnable to run \"${@}\" commad with root permission\e[0m" 
-    fi
-}
-
 if [ ! ${EUID} -ne 0 ]; then 
-    exec_with_root_permission /bin/chgrp -Rf ${USER} ${WORKDIR}
+    /usr/bin/sudo /bin/chgrp -Rf ${USER} ${WORKDIR}
 fi
 
 if [ -e "${WORKDIR}/.env"]; then
