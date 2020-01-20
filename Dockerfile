@@ -21,8 +21,8 @@ RUN set -xe && \
 
 # Add tools script
 COPY ./tools /opt/tools
-ENV PATH ${PATH}:/opt/tools
 RUN /bin/chmod -R +x /opt/tools/
+ENV PATH ${PATH}:/opt/tools
 
 # Set image settings
 VOLUME [${WORKDIR}]
