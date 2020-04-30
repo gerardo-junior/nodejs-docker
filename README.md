@@ -8,8 +8,6 @@
     [+] TELEGRAM:     @MrGerardoJunior
 ```
 
-[![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/gerardojunior/nodejs)
-
 Docker image to run [node](https://nodejs.org/) projects
 
 > The project must be in the **/src** container folder 
