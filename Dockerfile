@@ -1,6 +1,6 @@
-ARG NODE_VERSION="8.15.0"
+ARG NODE_VERSION=8.15.0
 
-FROM library/node:$NODE_VERSION-alpine
+FROM library/node:${NODE_VERSION}-alpine
 
 LABEL maintainer="Gerardo Junior <me@gerardo-junior.com>"
 LABEL url="https://github.com/gerardo-junior/nodejs-docker.git"
@@ -13,8 +13,8 @@ RUN /bin/mkdir -p ${WORKDIR}
 
 # Empowering user with sudo
 RUN set -xe && \
-    #addgroup -g 1000 $USER && \
-    #adduser -u 1000 -G $USER -s /bin/sh -D $USER && \
+    # addgroup -g 1000 $USER && \
+    # adduser -u 1000 -G $USER -s /bin/sh -D $USER && \
     /sbin/apk --no-cache --update add --virtual .persistent-deps sudo && \
     /bin/echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default && \
     /bin/chown -Rf ${USER} ${WORKDIR}
@@ -29,3 +29,4 @@ VOLUME [${WORKDIR}]
 WORKDIR ${WORKDIR}
 USER ${USER}
 ENTRYPOINT ["/bin/sh", "/opt/tools/entrypoint.sh"]
+CMD [ "npm", "run", "start" ]

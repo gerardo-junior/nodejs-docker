@@ -4,31 +4,17 @@ if [ ! ${EUID} -ne 0 ]; then
     /usr/bin/sudo /bin/chgrp -Rf ${USER} ${WORKDIR}
 fi
 
-if [ -e "${WORKDIR}/.env"]; then
-    export $(/bin/grep -v '^#' ${WORKDIR}/.env | /user/bin/xargs -d '\n')
-fi
-
-if [ -e "${WORKDIR}/yarn.lock" ]; then 
-    NODE_MANAGER='yarn'
-else 
-    NODE_MANAGER='npm'
-fi
-
 if [ -e "${WORKDIR}/package.json" ]; then    
     if [ ! -d "${WORKDIR}/node_modules" ]; then
-        /usr/local/bin/${NODE_MANAGER} install
-        /usr/local/bin/${NODE_MANAGER} cache clean --force
+        /usr/local/bin/npm install
+        /usr/local/bin/npm cache clean --force
     fi
 
     export PATH="${PATH}:${WORKDIR}/node_modules/.bin"
 fi
 
-if [ ! -z "$1" ]; then
-    if [ -z "$(/usr/bin/which -- $1)" ]; then
-        /usr/local/bin/${NODE_MANAGER} run "$@"
-    else
-        exec "$@"
-    fi
+if [ -z "$(/usr/bin/which -- $1)" ]; then
+    /usr/local/bin/npm run "$@"
+else
+    exec "$@"
 fi
-
-exit 1
