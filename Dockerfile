@@ -9,19 +9,19 @@ ENV USER 'node'
 ENV WORKDIR '/src'
 
 # Create project directory
-RUN /bin/mkdir -p ${WORKDIR}
+RUN mkdir -p ${WORKDIR}
 
 # Empowering user with sudo
 RUN set -xe && \
     # addgroup -g 1000 $USER && \
     # adduser -u 1000 -G $USER -s /bin/sh -D $USER && \
-    /sbin/apk --no-cache --update add --virtual .persistent-deps sudo && \
-    /bin/echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default && \
-    /bin/chown -Rf ${USER} ${WORKDIR}
+    apk --no-cache --update add --virtual .persistent-deps sudo && \
+    echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default && \
+    chown -Rf ${USER} ${WORKDIR}
 
 # Add tools script
 COPY ./tools /opt/tools
-RUN /bin/chmod -R +x /opt/tools/
+RUN chmod -R +x /opt/tools/
 ENV PATH ${PATH}:/opt/tools
 
 # Set image settings
